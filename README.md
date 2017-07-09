@@ -1,12 +1,12 @@
 # to-do-list
-First android application.  To do list application that is simple to use
+First android application.  To do list application that is simple to use.
 
 
 This is a very simple to do list android application.  
-Reasons for doig this project:
-1. I wanted a simple list of things i needed to remeber.  
+Reasons for doing this project:
+1. I wanted a simple list of things I needed to remeber.  
 2. Most apps in the app store have too many complicated functionalities like (time, date, how many time to remind me in a week,...)
-3. The UI in play store apps were not what I was looking for (also most of them have ads).
+3. The UI for pre-existing to do list apps were not what I was looking for (also most of them have ads).
 4. LEARN about android development. 
 
 Usage:
