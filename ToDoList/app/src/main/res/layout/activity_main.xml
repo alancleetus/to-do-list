@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp"
+    tools:context="io.github.alancleetus.todolist.MainActivity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="12"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="10dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
+
+            <EditText
+                android:id="@+id/newItemInputBox"
+                android:layout_width="303dp"
+
+                android:layout_columnSpan="10"
+                android:layout_gravity="fill"
+                android:fontFamily="casual"
+                android:hint="Enter new item to do..."
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="42dp"
+                android:layout_columnSpan="2"
+                android:layout_gravity=""
+                android:background="@color/colorAccent"
+
+                android:text="+"
+                android:textColor="@android:color/background_light"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tbdtext"
+                android:layout_columnSpan="12"
+                android:layout_gravity="fill"
+
+                android:fontFamily="casual"
+                android:inputType="none"
+                android:paddingBottom="5dp"
+                android:paddingTop="20dp"
+                android:text="To be done"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/toBeDoneSection"
+                android:layout_columnSpan="12"
+
+                android:layout_gravity="fill"
+                android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/donetext"
+                android:layout_columnSpan="12"
+                android:layout_gravity="fill"
+
+                android:fontFamily="casual"
+                android:inputType="none"
+                android:paddingBottom="5dp"
+                android:paddingTop="20dp"
+                android:text="Done"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/doneSection"
+                android:layout_columnSpan="12"
+
+                android:layout_gravity="fill"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <!--GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="3"
+                android:columnCount="12"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    android:padding="2dp"
+                    android:layout_columnSpan="10"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:layout_gravity="fill"
+
+                    android:fontFamily="casual"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="10"
+                    android:layout_columnSpan="2"
+                    android:layout_row="1"
+                    android:layout_rowSpan="2"
+                    android:padding="2dp"
+                    android:text="Button"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:padding="2dp"
+                    android:layout_columnSpan="10"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:layout_gravity="fill"
+                    android:text="TextView"
+                    android:fontFamily="casual" />
+
+            </GridLayout-->
+
+        </GridLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
