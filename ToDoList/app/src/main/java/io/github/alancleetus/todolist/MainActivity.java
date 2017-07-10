@@ -2,6 +2,7 @@ package io.github.alancleetus.todolist;
 
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -67,19 +68,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View v) {
 
-                //if the user has not written anything, return
-                if (InputBox.getText().toString().matches("")) return false;
+                final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+                View mView = getLayoutInflater().inflate(R.layout.dialog, null);
+                final EditText task = (EditText) mView.findViewById(R.id.TaskInput);
+                final EditText type = (EditText) mView.findViewById(R.id.TypeInput);
+                Button addButton = (Button) mView.findViewById(R.id.NewTaskButton);
 
-                //open a new dialog
-                /*
-                 * the dialog has one edit text for the task string
-                 * the dialog has a second edit text for the tag of the checkbox
-                 * it has a submit button for submitting the task
-                 */
+                if (!InputBox.getText().toString().matches("")) task.setText(InputBox.getText());
+
+                addButton.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view)
+                    {
+                        //if the user has not written anything, return
+                        if (task.getText().toString().matches("") || type.getText().toString().matches("")) return;
+
+                        //save item to database
+                        long id = myDb.insert(task.getText().toString(), type.getText().toString());
+
+                        //add item to list on app
+                        addToDoList(id, task.getText().toString(), type.getText().toString());
+
+                        //clear the input box
+                        task.setText("");
+                        type.setText("");
+                    }
+
+                });
+
+                alertBuilder.setView(mView);
+                AlertDialog dialog = alertBuilder.create();
+                dialog.show();
 
                 return true;
             }
         });
+
 
 
         /****what happens when enter key is presses on the edit text***/
@@ -324,4 +349,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
 }
