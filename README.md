@@ -1,4 +1,7 @@
 # to-do-list
+![Alt text]( /ToDoList/app/src/main/appLogo1-web.png?raw=true "App Icon")
+
+
 First android application.  To do list application that is simple to use.
 
 
@@ -11,8 +14,16 @@ Reasons for doing this project:
 
 Usage:
 This app is very simple to use.  
-1. enter the to do list item in the input field at the top of the app.
-2. press enter or the add button to add it to the list of items to to do.
-3. click on any item in the to do section of the app to move it to the done section.
-4. if you miss click, then press on the item in the done section to undo the action.
-5. if you want to delete an item, then first move it to the done section, then long press the item in the done section.
+1. Click on the button in the top right of the app to add a new task.
+2. Click on the green tick to mark done.
+3. Click on the red cross in the Done section to Delete item.
+4. Click on any item in the Done section to move it back to the not done section.
+5. Long press on any task to edit the task text and type.
+
+Click on the gas icon on the top to toggle between the gas leves: high, medium, low
+Click on the book icon on the top to toggle between wheter or not i have hw to do
+
+
+![Alt text]( /ToDoList/app/src/main/res/drawable/highgas.png?raw=true "Gas Icon")
+![Alt text]( /ToDoList/app/src/main/res/drawable/hwtbd.png?raw=true "Hw Icon")
+
