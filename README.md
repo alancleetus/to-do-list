@@ -14,16 +14,8 @@ Reasons for doing this project:
 
 Usage:
 This app is very simple to use.  
-1. Click on the button in the top right of the app to add a new task.
+1. Click on the button in the bottom right of the app to add a new task.
 2. Click on the green tick to mark done.
 3. Click on the red cross in the Done section to Delete item.
 4. Click on any item in the Done section to move it back to the not done section.
 5. Long press on any task to edit the task text and type.
-
-Click on the gas icon on the top to toggle between the gas leves: high, medium, low
-Click on the book icon on the top to toggle between wheter or not i have hw to do
-
-
-![Alt text]( /ToDoList/app/src/main/res/drawable/highgas.png?raw=true "Gas Icon")
-![Alt text]( /ToDoList/app/src/main/res/drawable/hwtbd.png?raw=true "Hw Icon")
-
