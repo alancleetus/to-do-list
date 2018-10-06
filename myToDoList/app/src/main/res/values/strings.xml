@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">To Do List</string>
+    <string name="curr_date">Curr date</string>
 
 </resources>

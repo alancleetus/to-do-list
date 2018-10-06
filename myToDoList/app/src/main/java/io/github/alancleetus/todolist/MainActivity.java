@@ -16,25 +16,26 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
+
+/*
+ * TODO:
+ * 1. create color coded tasks
+ * 2. add statistics
+ * 3. use realm db instead of sqlite
+ * ---4. remove header and show date and menu button instead
+ * ---5. remove extra space where general used to be
+ * 6. security
+ * 7. replace task button fab
+ * 8. reminder on day
+ * */
+
 public class MainActivity extends AppCompatActivity {
     //defining variables
-    private LinearLayout ParentLayoutDone;
-    private LinearLayout ParentLayoutNotDone;
+    private LinearLayout ParentLayout;
     private DatabaseHelper myDb;
 
-
-    /*
-     * TODO:
-     * 1. create color coded tasks
-     * 2. add statistics
-     * 3. use realm db instead of sqlite
-     * 4. remove header and show date and menu button instead
-     * 5. remove extra space where general used to be
-     * 6. security
-     * 7. replace task button fab
-     * 8. reminder on day
-     * */
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,109 @@ public class MainActivity extends AppCompatActivity {
 
         //initializing variables
         myDb = new DatabaseHelper(this);
-        ParentLayoutDone = (LinearLayout) findViewById(R.id.doneSection);
-        ParentLayoutNotDone = (LinearLayout) findViewById(R.id.toBeDoneSection);
+        ParentLayout = (LinearLayout) findViewById(R.id.taskSection);
+
+        EditText dateEditText = (EditText) findViewById(R.id.currDate);
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        String currDate = "";
+
+        switch(calendar.get(Calendar.DAY_OF_WEEK))
+        {
+            case 1:
+                currDate+="Sunday,";
+                break;
+
+            case 2:
+                currDate+="Monday,";
+                break;
+
+            case 3:
+                currDate+="Tuesday,";
+                break;
+
+            case 4:
+                currDate+="Wednesday,";
+                break;
+
+            case 5:
+                currDate+="Thursday,";
+                break;
+
+            case 6:
+                currDate+="Friday,";
+                break;
+
+            case 7:
+                currDate+="Saturday,";
+                break;
+
+            default:
+                currDate+="Error";
+                break;
+        }
+
+        switch(calendar.get(Calendar.MONTH)+1)
+        {
+            case 1:
+                currDate+=" January";
+                break;
+
+            case 2:
+                currDate+=" February";
+                break;
+
+            case 3:
+                currDate+=" March";
+                break;
+
+            case 4:
+                currDate+=" April";
+                break;
+
+            case 5:
+                currDate+=" May";
+                break;
+
+            case 6:
+                currDate+=" June";
+                break;
+
+            case 7:
+                currDate+=" July";
+                break;
+
+            case 8:
+                currDate+=" August";
+                break;
+
+            case 9:
+                currDate+=" September";
+                break;
+
+            case 10:
+                currDate+=" October";
+                break;
+
+            case 11:
+                currDate+=" November";
+                break;
+
+            case 12:
+                currDate+=" December";
+                break;
+
+            default:
+                currDate+="Error";
+                break;
+        }
+
+
+        currDate+= " "+calendar.get(Calendar.DAY_OF_MONTH);
+
+        dateEditText.setText(currDate);
 
         /****load saved data***/
         load();
@@ -84,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                         long id = myDb.TB_1_insert(task.getText().toString());
 
                         //add item to list on app interface
-                        addToDoList(id, task.getText().toString());
+                        addToDoList(id, task.getText().toString(), 0);
 
                         //clear the dialog box's text field
                         task.setText("");
@@ -119,45 +221,27 @@ public class MainActivity extends AppCompatActivity {
 
         while (data.moveToNext()) {
 
+
             System.out.println(data.getString(0));
 
             System.out.println(data.getString(1));
 
             System.out.println(data.getString(2));
             if (data.getString(2).matches("false"))
-                addToDoList(data.getLong(0), data.getString(1));
+                addToDoList(data.getLong(0), data.getString(1),0);
             else
-                addToDoneList(data.getLong(0), data.getString(1));
+                addToDoneList(data.getLong(0), data.getString(1), 0);
         }
 
     }
 
-    public void addToDoList(long id, final String newItem) {
+    public void addToDoList(long id, final String newItem, int index) {
 
         final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
         final TextView task = (TextView) toDoItem.findViewById(R.id.taskTextView);
-        Button editButton = (Button) toDoItem.findViewById(R.id.editButtonForTask); //button next to task
+        Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton); //button next to task
 
-        //while in the to be done section the button will be a green check mark
-        editButton.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
 
-        //when user clicks on the edit button the status will be updated in the db,
-        //removed from to do list, and moved to done list
-        editButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //update the status to true
-                myDb.TB_1_updateDataStatus(toDoItem.getTag().toString(), "true");
-
-                //we remove the item from the to be done section
-                ((LinearLayout) ParentLayoutNotDone).removeView(toDoItem);
-
-                //we then add it to the done section
-                addToDoneList(toDoItem);
-
-            }
-        });
 
         //set the text and id of task based on incoming parameters
         task.setText(newItem);
@@ -165,6 +249,28 @@ public class MainActivity extends AppCompatActivity {
 
         //make the task long clickable
         toDoItem.setLongClickable(true);
+
+        //when user clicks on the edit button the status will be updated in the db,
+        //removed from to do list, and moved to done list
+        radioButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //update the status to true
+                myDb.TB_1_updateDataStatus(toDoItem.getTag().toString(), "true");
+
+
+                //getting current position of item in parent layout
+                int index = ParentLayout.indexOfChild(toDoItem);
+
+                //we remove the item from the to be done section
+                ((LinearLayout) ParentLayout).removeView(toDoItem);
+
+                //we then add it to the done section
+                addToDoneList(toDoItem.getId(), (String) task.getText(), index);
+
+            }
+        });
 
         //when the task is long clicked, user will be able to edit the text
         View.OnLongClickListener doItemClicked = new View.OnLongClickListener() {
@@ -224,74 +330,27 @@ public class MainActivity extends AppCompatActivity {
         task.setOnLongClickListener(doItemClicked);
 
         //add the task to the top of the to be done list on app interface
-        ParentLayoutNotDone.addView(toDoItem, 0);
+        ParentLayout.addView(toDoItem, index);
     }
 
-    public void addToDoneList(final View toDoItem) {
+    public void addToDoneList(long id, final String newItem, int index) {
 
+
+        final View toDoItem = getLayoutInflater().inflate(R.layout.donetaskholder, null);
         final TextView task = (TextView) toDoItem.findViewById(R.id.taskTextView);
 
-        Button editButton = (Button) toDoItem.findViewById(R.id.editButtonForTask);
+        Button deleteButton = (Button) toDoItem.findViewById(R.id.deleteButtonForTask);
 
-        editButton.setBackgroundResource(R.drawable.cross);
-        editButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+        Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
 
-        //when the red cross next to tasks are clicked the task is deleted
-        editButton.setOnClickListener(new View.OnClickListener() {
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
                 myDb.TB_1_delete("" + toDoItem.getTag());
-                ((LinearLayout) ParentLayoutDone).removeView(toDoItem);
-                Toast.makeText(MainActivity.this, "Deleted: "+task.getText(), Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        //if the task is in the done list and the task is clicked, then the task will be moved back
-        //to the to be done list
-        View.OnClickListener doneItemClicked = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //update the status to false
-                myDb.TB_1_updateDataStatus(toDoItem.getTag().toString(), "false");
-
-                //first we remove it from the not done section
-                ((LinearLayout) ParentLayoutDone).removeView(toDoItem);
-
-                //then we add it to the list again
-                addToDoList((long) toDoItem.getTag(), task.getText().toString());
-            }
-        };
-
-        //this is what happens when you click an item in the done section
-        toDoItem.setOnClickListener(doneItemClicked);
-        task.setOnClickListener(doneItemClicked);
-
-        ((LinearLayout) ParentLayoutDone).addView(toDoItem, 0);
-
-    }
-
-    public void addToDoneList(long id, final String newItem) {
-
-
-        final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
-        final TextView task = (TextView) toDoItem.findViewById(R.id.taskTextView);
-
-        Button editButton = (Button) toDoItem.findViewById(R.id.editButtonForTask);
-
-        editButton.setBackgroundResource(R.drawable.cross);
-        editButton.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-                myDb.TB_1_delete("" + toDoItem.getTag());
-                ((LinearLayout) ParentLayoutDone).removeView(toDoItem);
+                ((LinearLayout) ParentLayout).removeView(toDoItem);
                 Toast.makeText(MainActivity.this, "Deleted: "+task.getText(), Toast.LENGTH_SHORT).show();
 
             }
@@ -302,26 +361,28 @@ public class MainActivity extends AppCompatActivity {
         toDoItem.setTag(id);
         toDoItem.setLongClickable(true);
 
-        View.OnClickListener doneItemClicked = new View.OnClickListener() {
+        radioButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 //update the status to false
                 myDb.TB_1_updateDataStatus(toDoItem.getTag().toString(), "false");
 
+
+                //getting current position of item in parent layout
+                int index = ParentLayout.indexOfChild(toDoItem);
+
                 //first we remove it from the not done section
-                ((LinearLayout) ParentLayoutDone).removeView(toDoItem);
+                ((LinearLayout) ParentLayout).removeView(toDoItem);
 
                 //then we add it to the list again
-                addToDoList((long) toDoItem.getTag(), task.getText().toString());
+                addToDoList((long) toDoItem.getTag(), task.getText().toString(), index);
             }
-        };
+        });
 
-        //this is what happens when you check an item in the done section
-        toDoItem.setOnClickListener(doneItemClicked);
-        task.setOnClickListener(doneItemClicked);
 
-        ((LinearLayout) ParentLayoutDone).addView(toDoItem, 0);
+
+        ((LinearLayout) ParentLayout).addView(toDoItem, index);
 
     }
 

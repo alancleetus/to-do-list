@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff5c5c</color>
-    <color name="colorPrimaryDark">#df5151</color>
-    <color name="colorAccent">#ffffff</color>
-
+    <color name="colorPrimary">#e9e9f2</color>
+    <color name="colorPrimaryDark">#e9e9f7</color>
+    <color name="colorAccent">#000000</color>
 
     <color name="navy">#001f3f</color>
     <color name="blue">#0074d9</color>
@@ -18,7 +17,5 @@
     <color name="maroon">#85144b</color>
     <color name="fuchsia">#f012be</color>
     <color name="purple">#b10dc9</color>
-
-
-
+    <color name="grey">#dbdbe4</color>
 </resources>
