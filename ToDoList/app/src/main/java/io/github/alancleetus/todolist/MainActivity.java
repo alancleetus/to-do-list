@@ -22,6 +22,19 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout ParentLayoutNotDone;
     private DatabaseHelper myDb;
 
+
+    /*
+     * TODO:
+     * 1. create color coded tasks
+     * 2. add statistics
+     * 3. use realm db instead of sqlite
+     * 4. remove header and show date and menu button instead
+     * 5. remove extra space where general used to be
+     * 6. security
+     * 7. replace task button fab
+     * 8. reminder on day
+     * */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
