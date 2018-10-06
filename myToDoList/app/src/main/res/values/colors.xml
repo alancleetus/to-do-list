@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e9e9f2</color>
-    <color name="colorPrimaryDark">#e9e9f7</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimary">#fff</color>
+    <color name="colorPrimaryDark">#fff</color>
+    <color name="colorAccent">#000</color>
 
-    <color name="navy">#001f3f</color>
-    <color name="blue">#0074d9</color>
-    <color name="aqua">#7fdbff</color>
-    <color name="teal">#39cccc</color>
-    <color name="olive">#3d9970</color>
-    <color name="green">#2ecc40</color>
-    <color name="lime">#01ff70</color>
-    <color name="yellow">#ffdc00</color>
-    <color name="orange">#ff851b</color>
-    <color name="red">#ff4136</color>
-    <color name="maroon">#85144b</color>
-    <color name="fuchsia">#f012be</color>
-    <color name="purple">#b10dc9</color>
+
+    <!--Pastels-->
+    <color name="redPastel">#ff7676</color>
+    <color name="orangePastel">#ffac76</color>
+    <color name="yellowPastel">#e6f472</color>
+    <color name="greenPastel">#76ffcf</color>
+    <color name="bluePastel">#76a6ff</color>
+    <color name="indigoPastel">#8076ff</color>
+    <color name="violetPastel">#ff76bd</color>
+
+    <color name="defaultPastel">#fff</color>
+
+
+
+
+    <color name="green">#b0f99b</color>
+    <color name="red">#f29191</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
     <color name="grey">#dbdbe4</color>
+
 </resources>

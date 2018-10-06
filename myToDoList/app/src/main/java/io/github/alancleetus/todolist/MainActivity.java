@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-
-        currDate+= " "+calendar.get(Calendar.DAY_OF_MONTH);
+        currDate+= " ";
+        currDate+= (calendar.get(Calendar.DAY_OF_MONTH) <10)? "0"+(calendar.get(Calendar.DAY_OF_MONTH)):(calendar.get(Calendar.DAY_OF_MONTH));
 
         dateEditText.setText(currDate);
 
