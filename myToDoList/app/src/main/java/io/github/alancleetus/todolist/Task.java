@@ -1,13 +1,18 @@
 package io.github.alancleetus.todolist;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 public class Task extends RealmObject {
 
+    @PrimaryKey
+    @Required
     private String ID;
+
     private String Topic;
     private String HexColor;
-    private Boolean Done;
+    private boolean Done;
     private int DueDay;
     private int DueMonth;
     private int DueYear;
