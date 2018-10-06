@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import io.realm.Realm;
+
 
 /*
  * TODO:
@@ -35,13 +37,17 @@ public class MainActivity extends AppCompatActivity {
     //defining variables
     private LinearLayout ParentLayout;
     private DatabaseHelper myDb;
-
+    private Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         /****My code starts here*****/
+
+        //open realm db
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
 
         //initializing variables
         myDb = new DatabaseHelper(this);
