@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
         EditText monthEditText = (EditText) findViewById(R.id.currMonth);
 
         dateEditText.setText(getDate());
-        dayEditText.setText(getDayOfWeek());
-        monthEditText.setText(getMonth());
+        dayEditText.setText(getDayOfWeek().substring(0,3).toUpperCase());
+        monthEditText.setText(getMonth().substring(0,3).toUpperCase()+". "+getYear());
 
 		/****load saved data***/
 		load();
@@ -141,25 +141,25 @@ public class MainActivity extends AppCompatActivity {
 		switch(c)
 		{
 				case R.id.redColorButton:
-					color="#FFFF7676";
+					color="#FFFF758C";
 					break;
 				case R.id.orangeColorButton:
 					color="#FFFFAC76";
 					break;
 				case R.id.yellowColorButton:
-					color="#FFEEF472";
+					color="#FFFEE140";
 					break;
 				case R.id.greenColorButton:
-					color="#FF76FFCF";
+					color="#FF43E97B";
 					break;
 				case R.id.blueColorButton:
-					color="#FF76A6FF";
+					color="#FF8FD3F4";
 					break;
 				case R.id.indigoColorButton:
-					color="#FF8076FF";
+					color="#FFA1C4FD";
 					break;
 				case R.id.violetColorButton:
-					color="#FFFF76BD";
+					color="#FFF093FB";
 					break;
 				default:
 					color="#FF000000";
@@ -281,6 +281,13 @@ public class MainActivity extends AppCompatActivity {
 
         return month;
     }
+
+	public String getYear()
+	{
+		Calendar calendar = Calendar.getInstance();
+		String year = ""+calendar.get(Calendar.YEAR);
+		return year;
+	}
 
 	/*add tasks to realm db*/
 	public String addToDB(String topic,  boolean done, String color, int day, int month, int year)

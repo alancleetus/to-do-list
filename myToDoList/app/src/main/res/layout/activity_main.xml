@@ -29,7 +29,6 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintHorizontal_bias="0.0"
@@ -47,6 +46,7 @@
                 android:id="@+id/TopBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 tools:layout_editor_absoluteX="8dp"
                 tools:layout_editor_absoluteY="201dp">
 
@@ -76,30 +76,35 @@
 
                     <EditText
                         android:id="@+id/currDate"
-                        android:layout_width="63dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:background="@android:color/transparent"
                         android:ems="10"
                         android:focusable="false"
-                        android:fontFamily="monospace"
+                        android:fontFamily="@font/roboto_mono_light"
                         android:inputType="text|date"
-                        android:padding="5dp"
+                        android:padding="0dp"
                         android:text="00"
-                        android:textSize="40sp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="60sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/DateText"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <Space
-                        android:layout_width="30dp"
+                    <View
+                        android:layout_width="3dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/colorAccent" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
 
                         <EditText
                             android:id="@+id/currDay"
@@ -108,10 +113,11 @@
                             android:background="@android:color/transparent"
                             android:ems="10"
                             android:focusable="false"
-                            android:fontFamily="monospace"
+                            android:fontFamily="@font/roboto_mono_light"
                             android:inputType="text|date"
-                            android:padding="5dp"
+                            android:padding="3dp"
                             android:text="XXXXXX"
+                            android:textColor="@color/colorAccent"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@id/taskSection"
@@ -126,10 +132,11 @@
                             android:background="@android:color/transparent"
                             android:ems="10"
                             android:focusable="false"
-                            android:fontFamily="monospace"
+                            android:fontFamily="@font/roboto_mono_light"
                             android:inputType="text|date"
-                            android:padding="5dp"
+                            android:padding="3dp"
                             android:text="XXXXXXX"
+                            android:textColor="@color/colorAccent"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toTopOf="@id/taskSection"
@@ -142,6 +149,13 @@
 
             </android.support.constraint.ConstraintLayout>
 
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20212121" />
+
             <LinearLayout
                 android:id="@+id/taskSection"
                 android:layout_width="match_parent"
@@ -151,6 +165,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="16dp"
                 android:orientation="vertical"
+                android:paddingBottom="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

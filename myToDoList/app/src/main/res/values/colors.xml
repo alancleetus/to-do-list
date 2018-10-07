@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#fff</color>
-    <color name="colorPrimaryDark">#fff</color>
-    <color name="colorAccent">#000</color>
+    <!--
+
+    set these in styles.xml
+
+    colorPrimary – The color of the app bar.
+    colorPrimaryDark – The color of the status bar and contextual app bars; this is normally a dark version of colorPrimary.
+    colorAccent – The color of UI controls such as check boxes, radio buttons, and edit text boxes.
+    windowBackground – The color of the screen background.
+    textColorPrimary – The color of UI text in the app bar.
+    statusBarColor – The color of the status bar.
+    navigationBarColor – The color of the navigation bar.
+
+    -->
+    <color name="colorPrimary">#fdfbfb</color>
+    <color name="colorPrimaryDark">#ebedee</color>
+    <color name="colorAccent">#434343</color>
 
 
     <!--Pastels-->
-    <color name="redPastel">#ff7676</color>
+    <color name="redPastel">#ff758c</color>
     <color name="orangePastel">#ffac76</color>
-    <color name="yellowPastel">#e6f472</color>
-    <color name="greenPastel">#76ffcf</color>
-    <color name="bluePastel">#76a6ff</color>
-    <color name="indigoPastel">#8076ff</color>
-    <color name="violetPastel">#ff76bd</color>
+    <color name="yellowPastel">#fee140</color>
+    <color name="greenPastel">#43e97b</color>
+    <color name="bluePastel">#8fd3f4</color>
+    <color name="indigoPastel">#a1c4fd</color>
+    <color name="violetPastel">#f093fb</color>
 
     <color name="defaultPastel">#fff</color>
 
