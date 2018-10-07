@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/TaskInput">
 
         <RadioButton
-            android:id="@+id/redRadioButton"
+            android:id="@+id/redColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,50 +47,62 @@
             android:contentDescription="red button" />
 
         <RadioButton
-            android:id="@+id/orangeRadioButton"
+            android:id="@+id/orangeColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/orangePastel" />
+            android:buttonTint="@color/orangePastel"
+            android:checked="false"
+            android:contentDescription="orange button" />
 
         <RadioButton
-            android:id="@+id/yellowRadioButton"
+            android:id="@+id/yellowColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/yellowPastel" />
+            android:buttonTint="@color/yellowPastel"
+            android:checked="false"
+            android:contentDescription="yellow button" />
 
         <RadioButton
-            android:id="@+id/greeRadioButton"
+            android:id="@+id/greenColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/greenPastel" />
+            android:buttonTint="@color/greenPastel"
+            android:checked="false"
+            android:contentDescription="green button" />
 
         <RadioButton
-            android:id="@+id/blueRadioButton"
+            android:id="@+id/blueColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/bluePastel" />
+            android:buttonTint="@color/bluePastel"
+            android:checked="false"
+            android:contentDescription="blue button" />
 
         <RadioButton
-            android:id="@+id/indigoRadioButton"
+            android:id="@+id/indigoColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/indigoPastel" />
+            android:buttonTint="@color/indigoPastel"
+            android:checked="false"
+            android:contentDescription="indigo button" />
 
         <RadioButton
-            android:id="@+id/violetRadioButton"
+            android:id="@+id/violetColorButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/violetPastel" />
+            android:buttonTint="@color/violetPastel"
+            android:checked="false"
+            android:contentDescription="violet button" />
     </RadioGroup>
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/duedatepicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -113,7 +125,7 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/NewTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/duedatepicker"
         tools:layout_constraintRight_creator="1" />
 
     <Button
@@ -128,7 +140,7 @@
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/duedatepicker"
         tools:layout_constraintRight_creator="1" />
 
 </android.support.constraint.ConstraintLayout>
