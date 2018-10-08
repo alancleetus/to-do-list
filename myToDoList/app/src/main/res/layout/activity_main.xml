@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pencil" />
+        app:srcCompat="@drawable/addicon" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -51,13 +51,15 @@
                 tools:layout_editor_absoluteY="201dp">
 
 
-                <ImageButton
+                <Button
+
                     android:id="@+id/statButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@android:drawable/ic_menu_agenda"
+                    android:background="@drawable/hamburgericon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

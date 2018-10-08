@@ -44,7 +44,7 @@
             <corners android:radius="0dp" />
             <padding android:top="10dp"/>
             <padding android:bottom="10dp"/>
-            <padding android:left="10dp"/>
+            <padding android:left="0dp"/>
             <padding android:right="10dp"/>
 
         </shape>

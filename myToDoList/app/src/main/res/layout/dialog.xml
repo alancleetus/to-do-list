@@ -99,48 +99,54 @@
             android:buttonTint="@color/violetPastel"
             android:checked="false"
             android:contentDescription="violet button" />
+
+        <RadioButton
+            android:id="@+id/whiteColorButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@color/white"
+            android:checked="false"
+            android:contentDescription="white button" />
     </RadioGroup>
 
-    <CalendarView
-        android:id="@+id/duedatepicker"
+    <Switch
+        android:id="@+id/remindertoggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:text="Is this a reminder? "
+        app:layout_constraintBottom_toTopOf="@+id/cancelDialogButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/colorRadioGroup"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/cancelDialogButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/cross"
         android:backgroundTint="@color/red"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/NewTaskButton"
-        app:layout_constraintTop_toBottomOf="@+id/duedatepicker"
         tools:layout_constraintRight_creator="1" />
 
     <Button
         android:id="@+id/NewTaskButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/tick"
         android:backgroundTint="@color/green"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/duedatepicker"
         tools:layout_constraintRight_creator="1" />
 
 </android.support.constraint.ConstraintLayout>

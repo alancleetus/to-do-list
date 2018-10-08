@@ -1,14 +1,10 @@
 package io.github.alancleetus.todolist;
 
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.Shape;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -85,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 				//task info
 				final EditText taskText = (EditText) mView.findViewById(R.id.TaskInput);
 				final RadioGroup taskColor = (RadioGroup) mView.findViewById(R.id.colorRadioGroup);
-				final CalendarView dueDatePicker = (CalendarView) mView.findViewById(R.id.duedatepicker);
 
 				//buttons to save task or to cancel the dialog box
 				Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
@@ -156,13 +151,13 @@ public class MainActivity extends AppCompatActivity {
 					color="#FF8FD3F4";
 					break;
 				case R.id.indigoColorButton:
-					color="#FFA1C4FD";
+					color="#FFA1ADFD";
 					break;
 				case R.id.violetColorButton:
 					color="#FFF093FB";
 					break;
 				default:
-					color="#FF000000";
+					color="#FFFFFFFF";
 					break;
 			}
 
@@ -329,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
 		final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
 
 		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
+		final View colorCode = (View) toDoItem.findViewById(R.id.colorcode);
 		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton); //button next to task
 
 		//set the text and id of task based on incoming parameters
@@ -336,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 		toDoItem.setTag(t.getID());
 
 		//set color of toDoItem
-		taskText.setTextColor(Color.parseColor(t.getHexColor()));
+		colorCode.setBackgroundColor(Color.parseColor(t.getHexColor()));
 
 		//make the task long clickable
 		toDoItem.setLongClickable(true);
@@ -375,7 +371,6 @@ public class MainActivity extends AppCompatActivity {
 
 				final EditText taskTextInAlert = (EditText) mView.findViewById(R.id.TaskInput);
 				final RadioGroup taskColor = (RadioGroup) mView.findViewById(R.id.colorRadioGroup);
-				final CalendarView dueDatePicker = (CalendarView) mView.findViewById(R.id.duedatepicker);
 
 				Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
 				Button cancelAlert = (Button) mView.findViewById(R.id.cancelDialogButton);
@@ -400,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
 
 						//update
 						taskText.setText(tempTask.getTopic());
-						taskText.setTextColor(Color.parseColor(tempTask.getHexColor()));
+						colorCode.setBackgroundColor(Color.parseColor(tempTask.getHexColor()));
 
 						//clear the input box
 						taskTextInAlert.setText("");
@@ -437,10 +432,9 @@ public class MainActivity extends AppCompatActivity {
 		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
 		Button deleteButton = (Button) toDoItem.findViewById(R.id.deleteButtonForTask);
 		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
+		final View colorCode = (View) toDoItem.findViewById(R.id.colorcode);
 
-		//set color of toDoItem
-		//View bg = toDoItem.findViewById(R.id.taskBoxBackground);
-		//bg.setBackgroundColor(Color.parseColor(t.getHexColor()));
+		colorCode.setBackgroundColor(Color.parseColor(t.getHexColor()));
 
 		deleteButton.setOnClickListener(new View.OnClickListener() {
 

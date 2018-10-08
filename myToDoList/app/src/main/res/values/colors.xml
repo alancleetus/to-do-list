@@ -24,7 +24,7 @@
     <color name="yellowPastel">#fee140</color>
     <color name="greenPastel">#43e97b</color>
     <color name="bluePastel">#8fd3f4</color>
-    <color name="indigoPastel">#a1c4fd</color>
+    <color name="indigoPastel">#a1adfd</color>
     <color name="violetPastel">#f093fb</color>
 
     <color name="defaultPastel">#fff</color>
@@ -32,10 +32,10 @@
 
 
 
-    <color name="green">#b0f99b</color>
+    <color name="green">#9bf9da</color>
     <color name="red">#f29191</color>
     <color name="white">#fff</color>
-    <color name="black">#000</color>
+    <color name="black">#000000</color>
     <color name="grey">#dbdbe4</color>
 
 </resources>
