@@ -7,16 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.Date;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -32,6 +30,9 @@ import io.realm.RealmResults;
  * 7. replace task button fab
  * 8. reminder on day
  * 9. comment color section
+ * 10. night mode
+ * 11. view tasks by color code
+ * 12.password lock
  * */
 
 public class MainActivity extends AppCompatActivity {
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 						// return without doing anything
 						if (taskText.getText().toString().matches("")) return;
 
+						//passes the id of the checked radio button
 						String color = calculateColorSelected(taskColor.getCheckedRadioButtonId());
 
 						//else insert task to database
@@ -135,38 +137,75 @@ public class MainActivity extends AppCompatActivity {
 
 		switch(c)
 		{
-				case R.id.redColorButton:
-					color="#FFFF758C";
-					break;
-				case R.id.orangeColorButton:
-					color="#FFFFAC76";
-					break;
-				case R.id.yellowColorButton:
-					color="#FFFEE140";
-					break;
-				case R.id.greenColorButton:
-					color="#FF43E97B";
-					break;
-				case R.id.blueColorButton:
-					color="#FF8FD3F4";
-					break;
-				case R.id.indigoColorButton:
-					color="#FFA1ADFD";
-					break;
-				case R.id.violetColorButton:
-					color="#FFF093FB";
-					break;
-				default:
-					color="#FFFFFFFF";
-					break;
-			}
-
-			//Log.i("radio test", "color: "+color);
-
-			return color;
+			case R.id.redColorButton:
+				color="#FFFF758C";
+				break;
+			case R.id.orangeColorButton:
+				color="#FFFFAC76";
+				break;
+			case R.id.yellowColorButton:
+				color="#FFFEE140";
+				break;
+			case R.id.greenColorButton:
+				color="#FF43E97B";
+				break;
+			case R.id.blueColorButton:
+				color="#FF8FD3F4";
+				break;
+			case R.id.indigoColorButton:
+				color="#FFA1ADFD";
+				break;
+			case R.id.violetColorButton:
+				color="#FFF093FB";
+				break;
+			default:
+				color="#FFFFFFFF";
+				break;
 		}
 
-    public String getDate()
+		//Log.i("radio test", "color: "+color);
+
+		return color;
+	}
+
+	public int calculateCheckBoxId(String hex)
+	{
+		int color;
+
+		switch(hex)
+		{
+			case "#FFFF758C":
+				color=R.id.redColorButton;
+				break;
+			case "#FFFFAC76":
+				color=R.id.orangeColorButton;
+				break;
+			case "#FFFEE140":
+				color=R.id.yellowColorButton;
+				break;
+			case "#FF43E97B":
+				color=R.id.greenColorButton;
+				break;
+			case "#FF8FD3F4":
+				color=R.id.blueColorButton;
+				break;
+			case"#FFA1ADFD":
+				color=R.id.indigoColorButton;
+				break;
+			case "#FFF093FB":
+				color=R.id.violetColorButton;
+				break;
+			default:
+				color=R.id.whiteColorButton;
+				break;
+		}
+
+		//Log.i("radio test", "color: "+color);
+
+		return color;
+	}
+
+	public String getDate()
     {
         Calendar calendar = Calendar.getInstance();
         String date = (calendar.get(Calendar.DATE)<=9)? "0"+(calendar.get(Calendar.DATE)):""+(calendar.get(Calendar.DATE));
@@ -335,6 +374,8 @@ public class MainActivity extends AppCompatActivity {
 		colorCode.setBackgroundColor(Color.parseColor(t.getHexColor()));
 
 		//make the task long clickable
+
+		//todo:this does not work becasue id is null
 		toDoItem.setLongClickable(true);
 
 		//when user clicks on the edit button the status will be updated in the db,
@@ -376,22 +417,27 @@ public class MainActivity extends AppCompatActivity {
 				Button cancelAlert = (Button) mView.findViewById(R.id.cancelDialogButton);
 
 				final Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
+
 				taskTextInAlert.setText(tempTask.getTopic());
+				taskColor.check(calculateCheckBoxId(tempTask.getHexColor()));
 
 				addButtonInAlert.setOnClickListener(new View.OnClickListener() {
-
 					@Override
 					public void onClick(View view) {
 						//if the user has not written anything new, return/cancel
 						if (taskTextInAlert.getText().toString().matches(""))
 							return;
 
-						//update topic in database
-						realm.beginTransaction();
-						Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-						tempTask.setTopic(taskTextInAlert.getText().toString());
-						tempTask.setHexColor(calculateColorSelected(taskColor.getCheckedRadioButtonId()));
-						realm.commitTransaction();
+						//update topic in database iff color or topic changes
+						if(!tempTask.getTopic().equals(taskTextInAlert.getText().toString()) ||
+						!tempTask.getHexColor().equals(calculateColorSelected(taskColor.getCheckedRadioButtonId())))
+						{
+							realm.beginTransaction();
+							Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
+							tempTask.setTopic(taskTextInAlert.getText().toString());
+							tempTask.setHexColor(calculateColorSelected(taskColor.getCheckedRadioButtonId()));
+							realm.commitTransaction();
+						}
 
 						//update
 						taskText.setText(tempTask.getTopic());
