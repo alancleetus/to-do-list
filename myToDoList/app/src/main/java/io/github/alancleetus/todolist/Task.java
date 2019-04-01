@@ -11,7 +11,6 @@ public class Task extends RealmObject {
     private String ID;
 
     private String Topic;
-    private String HexColor;
     private boolean Done;
     private int DueDay;
     private int DueMonth;
@@ -31,14 +30,6 @@ public class Task extends RealmObject {
 
     public void setTopic(String topic) {
         Topic = topic;
-    }
-
-    public String getHexColor() {
-        return HexColor;
-    }
-
-    public void setHexColor(String hexColor) {
-        HexColor = hexColor;
     }
 
     public Boolean getDone() {

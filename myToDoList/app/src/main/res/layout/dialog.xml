@@ -25,116 +25,17 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-    <RadioGroup
-        android:id="@+id/colorRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TaskInput">
-
-        <RadioButton
-            android:id="@+id/redColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/redPastel"
-            android:checked="false"
-            android:contentDescription="red button" />
-
-        <RadioButton
-            android:id="@+id/orangeColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/orangePastel"
-            android:checked="false"
-            android:contentDescription="orange button" />
-
-        <RadioButton
-            android:id="@+id/yellowColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/yellowPastel"
-            android:checked="false"
-            android:contentDescription="yellow button" />
-
-        <RadioButton
-            android:id="@+id/greenColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/greenPastel"
-            android:checked="false"
-            android:contentDescription="green button" />
-
-        <RadioButton
-            android:id="@+id/blueColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/bluePastel"
-            android:checked="false"
-            android:contentDescription="blue button" />
-
-        <RadioButton
-            android:id="@+id/indigoColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/indigoPastel"
-            android:checked="false"
-            android:contentDescription="indigo button" />
-
-        <RadioButton
-            android:id="@+id/violetColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/violetPastel"
-            android:checked="false"
-            android:contentDescription="violet button" />
-
-        <RadioButton
-            android:id="@+id/whiteColorButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="#EBEDEE"
-            android:checked="false"
-            android:contentDescription="white button" />
-    </RadioGroup>
-
-    <Switch
-        android:id="@+id/remindertoggle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Is this a reminder? "
-        app:layout_constraintBottom_toTopOf="@+id/cancelDialogButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorRadioGroup"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/cancelDialogButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="60dp"
         android:background="@drawable/cross"
         android:backgroundTint="@color/red"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/NewTaskButton"
+        app:layout_constraintTop_toBottomOf="@+id/TaskInput"
         tools:layout_constraintRight_creator="1" />
 
     <Button

@@ -13,10 +13,19 @@
     navigationBarColor – The color of the navigation bar.
 
     -->
-    <color name="colorPrimary">#fdfbfb</color>
-    <color name="colorPrimaryDark">#ebedee</color>
-    <color name="colorAccent">#434343</color>
 
+    <!--Dark Theme-->
+    <color name="colorPrimary">#042941</color>
+    <color name="colorPrimaryDark">#0b1b23</color>
+    <color name="colorAccent">#f7ae30</color>
+    <color name="colorBackground">#091C23</color>
+
+    <!--Light Theme
+    <color name="colorPrimary">#05a8f4</color>
+    <color name="colorPrimaryDark">#0387d0</color>
+    <color name="colorAccent">#f7ae30</color>
+    <color name="colorBackground">#ededed</color>
+    -->
 
     <!--Pastels-->
     <color name="redPastel">#ff758c</color>
@@ -27,15 +36,15 @@
     <color name="indigoPastel">#a1adfd</color>
     <color name="violetPastel">#f093fb</color>
 
-    <color name="defaultPastel">#fff</color>
+    <color name="defaultPastel">#FFFFFF</color>
 
 
 
 
-    <color name="green">#9bf9da</color>
+    <color name="green">#9BF9DA</color>
     <color name="red">#f29191</color>
     <color name="white">#fff</color>
     <color name="black">#000000</color>
-    <color name="grey">#dbdbe4</color>
+    <color name="grey">#BBBBC2</color>
 
 </resources>

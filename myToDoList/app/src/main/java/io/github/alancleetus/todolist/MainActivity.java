@@ -1,6 +1,5 @@
 package io.github.alancleetus.todolist;
 
-import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,15 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmResults;
-
 
 /*
  * TODO:
@@ -54,13 +50,19 @@ public class MainActivity extends AppCompatActivity {
 
 		ParentLayout = (LinearLayout) findViewById(R.id.taskSection);
 
-        EditText dateEditText = (EditText) findViewById(R.id.currDate);
-        EditText dayEditText = (EditText) findViewById(R.id.currDay);
-        EditText monthEditText = (EditText) findViewById(R.id.currMonth);
+		TextView dayTV = (TextView) findViewById(R.id.DayOfWeekTextView);
+		TextView dateTV = (TextView) findViewById(R.id.DateTextView);
 
-        dateEditText.setText(getDate());
-        dayEditText.setText(getDayOfWeek().substring(0,3).toUpperCase());
-        monthEditText.setText(getMonth().substring(0,3).toUpperCase()+". "+getYear());
+        Calendar calendar = Calendar.getInstance();
+
+        String dayOfWeek = ""+ WeekDay.forValue(calendar.get(Calendar.DAY_OF_WEEK));
+        String month = ""+ WeekDay.forValue(calendar.get(Calendar.MONTH));
+        String date = ""+calendar.get(calendar.DATE);
+        String year = ""+calendar.get(calendar.YEAR);
+
+
+        dateTV.setText(month+" "+date+" "+year);
+        dayTV.setText(dayOfWeek);
 
 		/****load saved data***/
 		load();
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
 				//task info
 				final EditText taskText = (EditText) mView.findViewById(R.id.TaskInput);
-				final RadioGroup taskColor = (RadioGroup) mView.findViewById(R.id.colorRadioGroup);
 
 				//buttons to save task or to cancel the dialog box
 				Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
@@ -97,11 +98,8 @@ public class MainActivity extends AppCompatActivity {
 						// return without doing anything
 						if (taskText.getText().toString().matches("")) return;
 
-						//passes the id of the checked radio button
-						String color = calculateColorSelected(taskColor.getCheckedRadioButtonId());
-
 						//else insert task to database
-						String id = addToDB(taskText.getText().toString(), false, color, -1, -1, -1);
+						String id = addToDB(taskText.getText().toString(), false, -1, -1, -1);
 
 						//query to find task of given id
 						Task t= realm.where(Task.class).equalTo("ID", id).findFirst();
@@ -131,200 +129,8 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	public String calculateColorSelected(int c)
-	{
-		String color="";
-
-		switch(c)
-		{
-			case R.id.redColorButton:
-				color="#FFFF758C";
-				break;
-			case R.id.orangeColorButton:
-				color="#FFFFAC76";
-				break;
-			case R.id.yellowColorButton:
-				color="#FFFEE140";
-				break;
-			case R.id.greenColorButton:
-				color="#FF43E97B";
-				break;
-			case R.id.blueColorButton:
-				color="#FF8FD3F4";
-				break;
-			case R.id.indigoColorButton:
-				color="#FFA1ADFD";
-				break;
-			case R.id.violetColorButton:
-				color="#FFF093FB";
-				break;
-			default:
-				color="#FFFFFFFF";
-				break;
-		}
-
-		//Log.i("radio test", "color: "+color);
-
-		return color;
-	}
-
-	public int calculateCheckBoxId(String hex)
-	{
-		int color;
-
-		switch(hex)
-		{
-			case "#FFFF758C":
-				color=R.id.redColorButton;
-				break;
-			case "#FFFFAC76":
-				color=R.id.orangeColorButton;
-				break;
-			case "#FFFEE140":
-				color=R.id.yellowColorButton;
-				break;
-			case "#FF43E97B":
-				color=R.id.greenColorButton;
-				break;
-			case "#FF8FD3F4":
-				color=R.id.blueColorButton;
-				break;
-			case"#FFA1ADFD":
-				color=R.id.indigoColorButton;
-				break;
-			case "#FFF093FB":
-				color=R.id.violetColorButton;
-				break;
-			default:
-				color=R.id.whiteColorButton;
-				break;
-		}
-
-		//Log.i("radio test", "color: "+color);
-
-		return color;
-	}
-
-	public String getDate()
-    {
-        Calendar calendar = Calendar.getInstance();
-        String date = (calendar.get(Calendar.DATE)<=9)? "0"+(calendar.get(Calendar.DATE)):""+(calendar.get(Calendar.DATE));
-        return date;
-    }
-
-    public String getDayOfWeek()
-    {
-        Calendar calendar = Calendar.getInstance();
-        String dayOfWeek = "";
-        switch(calendar.get(Calendar.DAY_OF_WEEK))
-        {
-            case 1:
-                dayOfWeek+="Sunday";
-                break;
-
-            case 2:
-                dayOfWeek+="Monday";
-                break;
-
-            case 3:
-                dayOfWeek+="Tuesday";
-                break;
-
-            case 4:
-                dayOfWeek+="Wednesday";
-                break;
-
-            case 5:
-                dayOfWeek+="Thursday";
-                break;
-
-            case 6:
-                dayOfWeek+="Friday";
-                break;
-
-            case 7:
-                dayOfWeek+="Saturday";
-                break;
-
-            default:
-                dayOfWeek+="Error";
-                break;
-        }
-        return dayOfWeek;
-    }
-
-    public String getMonth()
-    {
-        Calendar calendar = Calendar.getInstance();
-        String month = "";
-
-        switch(calendar.get(Calendar.MONTH)+1)
-        {
-            case 1:
-                month+="January";
-                break;
-
-            case 2:
-                month+="February";
-                break;
-
-            case 3:
-                month+="March";
-                break;
-
-            case 4:
-                month+="April";
-                break;
-
-            case 5:
-                month+="May";
-                break;
-
-            case 6:
-                month+="June";
-                break;
-
-            case 7:
-                month+="July";
-                break;
-
-            case 8:
-                month+="August";
-                break;
-
-            case 9:
-                month+="September";
-                break;
-
-            case 10:
-                month+="October";
-                break;
-
-            case 11:
-                month+="November";
-                break;
-
-            case 12:
-                month+="December";
-                break;
-
-            default:
-                month+="Error";
-                break;
-        }
-
-        return month;
-    }
-
-	public String getYear()
-	{
-		Calendar calendar = Calendar.getInstance();
-		String year = ""+calendar.get(Calendar.YEAR);
-		return year;
-	}
-
 	/*add tasks to realm db*/
-	public String addToDB(String topic,  boolean done, String color, int day, int month, int year)
+	public String addToDB(String topic,  boolean done,  int day, int month, int year)
 	{
 		realm.beginTransaction();
 
@@ -333,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
 		Task t = realm.createObject(Task.class, id);
 		t.setTopic(topic);
 		t.setDone(done);
-		t.setHexColor(color);
 		t.setDueDay(day);
 		t.setDueMonth(month);
 		t.setDueYear(year);
@@ -363,15 +168,11 @@ public class MainActivity extends AppCompatActivity {
 		final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
 
 		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
-		final View colorCode = (View) toDoItem.findViewById(R.id.colorcode);
 		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton); //button next to task
 
 		//set the text and id of task based on incoming parameters
 		taskText.setText(t.getTopic());
 		toDoItem.setTag(t.getID());
-
-		//set color of toDoItem
-		colorCode.setBackgroundColor(Color.parseColor(t.getHexColor()));
 
 		//make the task long clickable
 
@@ -411,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
 				View mView = getLayoutInflater().inflate(R.layout.dialog, null);
 
 				final EditText taskTextInAlert = (EditText) mView.findViewById(R.id.TaskInput);
-				final RadioGroup taskColor = (RadioGroup) mView.findViewById(R.id.colorRadioGroup);
 
 				Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
 				Button cancelAlert = (Button) mView.findViewById(R.id.cancelDialogButton);
@@ -419,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
 				final Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
 
 				taskTextInAlert.setText(tempTask.getTopic());
-				taskColor.check(calculateCheckBoxId(tempTask.getHexColor()));
 
 				addButtonInAlert.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -428,20 +227,17 @@ public class MainActivity extends AppCompatActivity {
 						if (taskTextInAlert.getText().toString().matches(""))
 							return;
 
-						//update topic in database iff color or topic changes
-						if(!tempTask.getTopic().equals(taskTextInAlert.getText().toString()) ||
-						!tempTask.getHexColor().equals(calculateColorSelected(taskColor.getCheckedRadioButtonId())))
+						//update topic in database if topic changes
+						if(!tempTask.getTopic().equals(taskTextInAlert.getText().toString()))
 						{
 							realm.beginTransaction();
 							Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
 							tempTask.setTopic(taskTextInAlert.getText().toString());
-							tempTask.setHexColor(calculateColorSelected(taskColor.getCheckedRadioButtonId()));
 							realm.commitTransaction();
 						}
 
 						//update
 						taskText.setText(tempTask.getTopic());
-						colorCode.setBackgroundColor(Color.parseColor(tempTask.getHexColor()));
 
 						//clear the input box
 						taskTextInAlert.setText("");
@@ -478,9 +274,7 @@ public class MainActivity extends AppCompatActivity {
 		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
 		Button deleteButton = (Button) toDoItem.findViewById(R.id.deleteButtonForTask);
 		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
-		final View colorCode = (View) toDoItem.findViewById(R.id.colorcode);
 
-		colorCode.setBackgroundColor(Color.parseColor(t.getHexColor()));
 
 		deleteButton.setOnClickListener(new View.OnClickListener() {
 
