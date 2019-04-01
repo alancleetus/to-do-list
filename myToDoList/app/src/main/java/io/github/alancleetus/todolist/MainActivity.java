@@ -1,6 +1,8 @@
 package io.github.alancleetus.todolist;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import io.realm.Realm;
@@ -33,39 +36,34 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity {
 	//defining variables
-	private LinearLayout ParentLayout;
 	private Realm realm;
 
-	@Override
+    private LinearLayout ParentLayout;
+	private TabLayout tabLayout;
+	private ViewPager viewPager;
+    private final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		/****My code starts here*****/
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-		//initializing variables
+        adapter.AddFragment(new ActiveFragment(), "Active");
+        adapter.AddFragment(new CompletedFragment(), "Completed");
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        //initializing variables
 		//open realm db
 		Realm.init(this);
 		realm = Realm.getDefaultInstance();
 
-		ParentLayout = (LinearLayout) findViewById(R.id.taskSection);
 
-		TextView dayTV = (TextView) findViewById(R.id.DayOfWeekTextView);
-		TextView dateTV = (TextView) findViewById(R.id.DateTextView);
-
-        Calendar calendar = Calendar.getInstance();
-
-        String dayOfWeek = ""+ WeekDay.forValue(calendar.get(Calendar.DAY_OF_WEEK));
-        String month = ""+ WeekDay.forValue(calendar.get(Calendar.MONTH));
-        String date = ""+calendar.get(calendar.DATE);
-        String year = ""+calendar.get(calendar.YEAR);
-
-
-        dateTV.setText(month+" "+date+" "+year);
-        dayTV.setText(dayOfWeek);
-
-		/****load saved data***/
-		load();
+		setDate();
 
 		/****************************
 		 * fab button found on the top right had corner
@@ -105,7 +103,9 @@ public class MainActivity extends AppCompatActivity {
 						Task t= realm.where(Task.class).equalTo("ID", id).findFirst();
 
 						//add item to list on app interface
-						addToDoList(t, 0);
+						ActiveFragment active = (ActiveFragment) adapter.getItem(0);
+
+                        active.addToActiveList(t);
 
 						//clear the dialog box's text field
 						taskText.setText("");
@@ -129,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+    private void setDate(){
+        TextView dayTV = (TextView) findViewById(R.id.DayOfWeekTextView);
+        TextView dateTV = (TextView) findViewById(R.id.DateTextView);
+
+        Calendar calendar = Calendar.getInstance();
+
+        String dayOfWeek = ""+ WeekDay.forValue(calendar.get(Calendar.DAY_OF_WEEK));
+        String month = ""+ WeekDay.forValue(calendar.get(Calendar.MONTH));
+        String date = ""+calendar.get(calendar.DATE);
+        String year = ""+calendar.get(calendar.YEAR);
+
+
+        dateTV.setText(month+" "+date+" "+year);
+        dayTV.setText(dayOfWeek);
+    }
+
 	/*add tasks to realm db*/
 	public String addToDB(String topic,  boolean done,  int day, int month, int year)
 	{
@@ -148,173 +164,61 @@ public class MainActivity extends AppCompatActivity {
 		return id;
 	}
 
-	//loads all the task when the app is first opened
-	public void load() {
+    public ArrayList<Task> loadActive() {
 
-		//fetch all tasks from realm db and append them to main app screen
-		RealmResults<Task> tasksArr = realm.where(Task.class).findAll();
+        RealmResults<Task> tasksArr = realm.where(Task.class).findAll();
 
-		for (Task t : tasksArr) {
-			if (t.getDone())
-				addToDoneList(t, 0);
-			else
-				addToDoList(t, 0);
-		}
-	}
+        ArrayList<Task> arr= new ArrayList<>();
+        for (Task t : tasksArr) {
+            if (!t.getDone())
+                arr.add(t);
+        }
+        return arr;
+    }
 
-	//add a item to be done
-	public void addToDoList(final Task t, int index) {
+    public ArrayList<Task> loadCompleted() {
 
-		final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
+        RealmResults<Task> tasksArr = realm.where(Task.class).findAll();
 
-		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
-		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton); //button next to task
+        ArrayList<Task> arr= new ArrayList<>();
+        for (Task t : tasksArr) {
+            if (t.getDone())
+                arr.add(t);
+        }
 
-		//set the text and id of task based on incoming parameters
-		taskText.setText(t.getTopic());
-		toDoItem.setTag(t.getID());
-
-		//make the task long clickable
-
-		//todo:this does not work becasue id is null
-		toDoItem.setLongClickable(true);
-
-		//when user clicks on the edit button the status will be updated in the db,
-		//removed from to do list, and moved to done list
-		radioButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				//update the status to true
-				realm.beginTransaction();
-				Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-				tempTask.setDone(true);
-				realm.commitTransaction();
-
-				//getting current position of item in parent layout
-				int index = ParentLayout.indexOfChild(toDoItem);
-
-				//we remove the item from the to be done section
-				((LinearLayout) ParentLayout).removeView(toDoItem);
-
-				//we then add it to the done section
-				addToDoneList(tempTask, index);
-			}
-		});
-
-		//when the task is long clicked, user will be able to edit the text
-		View.OnLongClickListener doItemClicked = new View.OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View view) {
-
-				final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-				View mView = getLayoutInflater().inflate(R.layout.dialog, null);
-
-				final EditText taskTextInAlert = (EditText) mView.findViewById(R.id.TaskInput);
-
-				Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
-				Button cancelAlert = (Button) mView.findViewById(R.id.cancelDialogButton);
-
-				final Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-
-				taskTextInAlert.setText(tempTask.getTopic());
-
-				addButtonInAlert.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						//if the user has not written anything new, return/cancel
-						if (taskTextInAlert.getText().toString().matches(""))
-							return;
-
-						//update topic in database if topic changes
-						if(!tempTask.getTopic().equals(taskTextInAlert.getText().toString()))
-						{
-							realm.beginTransaction();
-							Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-							tempTask.setTopic(taskTextInAlert.getText().toString());
-							realm.commitTransaction();
-						}
-
-						//update
-						taskText.setText(tempTask.getTopic());
-
-						//clear the input box
-						taskTextInAlert.setText("");
-					}
-				});
-
-				alertBuilder.setView(mView);
-				final AlertDialog dialog = alertBuilder.create();
-				dialog.show();
-
-				cancelAlert.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-						dialog.cancel();
-					}
-				});
-
-				return true;
-			}
-		};
-
-		//this is what happens when the to be done item is checked
-		toDoItem.setOnLongClickListener(doItemClicked);
-		toDoItem.setOnLongClickListener(doItemClicked);
-
-		//add the task index position
-		ParentLayout.addView(toDoItem, index);
-	}
-
-	//add an item that is marked done but not yet deleted
-	public void addToDoneList(final Task t, int index) {
-
-		final View toDoItem = getLayoutInflater().inflate(R.layout.donetaskholder, null);
-		final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
-		Button deleteButton = (Button) toDoItem.findViewById(R.id.deleteButtonForTask);
-		Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
+        return arr;
+    }
 
 
-		deleteButton.setOnClickListener(new View.OnClickListener() {
+    public void updateTaskInDB(String id, boolean bool) {
+        //update the status to true
+        realm.beginTransaction();
+        Task tempTask = realm.where(Task.class).equalTo("ID", id).findFirst();
+        tempTask.setDone(bool);
+        realm.commitTransaction();
 
-			@Override
-			public void onClick(View view) {
 
-				realm.beginTransaction();
-				Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-				tempTask.deleteFromRealm();
-				realm.commitTransaction();
-				ParentLayout.removeView(toDoItem);
-				Toast.makeText(MainActivity.this, "Deleted: "+taskText.getText(), Toast.LENGTH_SHORT).show();
-			}
-		});
+        if (bool) {
+            CompletedFragment completed = (CompletedFragment) adapter.getItem(1);
+            completed.addToCompletedList(tempTask);
+        }
+        else
+        {
+            ActiveFragment active = (ActiveFragment) adapter.getItem(0);
+            active.addToActiveList(tempTask);
+        }
 
-		taskText.setText(t.getTopic());
-		toDoItem.setTag(t.getID());
-		toDoItem.setLongClickable(true);
-
-		radioButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				//update the status to false
-				realm.beginTransaction();
-
-				Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
-				tempTask.setDone(false);
-
-				realm.commitTransaction();
-				//getting current position of item in parent layout
-				int index = ParentLayout.indexOfChild(toDoItem);
-
-				//first we remove it from the not done section
-				((LinearLayout) ParentLayout).removeView(toDoItem);
-
-				//then we add it to the list again
-				addToDoList(tempTask, index);
-			}
-		});
-
-		ParentLayout.addView(toDoItem, index);
-	}
+    }
+    public void deleteTaskFromDB(String id)
+    {
+        realm.beginTransaction();
+        Task tempTask = realm.where(Task.class).equalTo("ID", id).findFirst();
+        tempTask.deleteFromRealm();
+        realm.commitTransaction();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        realm.close();
+    }
 }

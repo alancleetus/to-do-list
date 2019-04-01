@@ -43,7 +43,7 @@
             android:paddingBottom="8dp"
             android:text="Monday"
             android:textAlignment="center"
-            android:textColor="@color/defaultPastel"
+            android:textColor="@color/white"
             android:textSize="24sp" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:layout_weight="1"
             android:text="March 21, 2019"
             android:textAlignment="center"
-            android:textColor="@color/defaultPastel"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -66,29 +66,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateLayout"
-        app:tabSelectedTextColor="@color/defaultPastel"
-        app:tabTextColor="@color/grey">
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/AllTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All" />
-
-        <android.support.design.widget.TabItem
-            android:id="@+id/ActiveTab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Active" />
-
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Completed" />
-    </android.support.design.widget.TabLayout>
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/grey"/>
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
 
 </android.support.constraint.ConstraintLayout>
