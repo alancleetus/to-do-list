@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--
 
-    set these in styles.xml
+    <!--Light Theme-->
+    <color name="colorPrimary">#81D4FA</color>
+    <color name="colorPrimaryDark">#42A5F5</color>
+    <color name="colorAccent">#F7AE30</color>
+    <color name="colorBackground">#EDEDED</color>
+    <color name="textColor">#000000</color>
 
-    colorPrimary – The color of the app bar.
-    colorPrimaryDark – The color of the status bar and contextual app bars; this is normally a dark version of colorPrimary.
-    colorAccent – The color of UI controls such as check boxes, radio buttons, and edit text boxes.
-    windowBackground – The color of the screen background.
-    textColorPrimary – The color of UI text in the app bar.
-    statusBarColor – The color of the status bar.
-    navigationBarColor – The color of the navigation bar.
-
-    -->
 
     <!--Dark Theme-->
-    <color name="colorPrimary">#042941</color>
-    <color name="colorPrimaryDark">#0b1b23</color>
-    <color name="colorAccent">#F7AE30</color>
-    <color name="colorBackground">#091C23</color>
+    <color name="colorPrimaryNight">#042941</color>
+    <color name="colorPrimaryDarkNight">#0b1b23</color>
+    <color name="colorAccentNight">#F7AE30</color>
+    <color name="colorBackgroundNight">#091C23</color>
+    <color name="textColorNight">#FFFFFF</color>
 
-    <!--Light Theme
-    <color name="colorPrimary">#05a8f4</color>
-    <color name="colorPrimaryDark">#0387d0</color>
-    <color name="colorAccent">#f7ae30</color>
-    <color name="colorBackground">#ededed</color>
-    -->
-
-    <color name="white">#fff</color>
-    <color name="black">#000000</color>
-    <color name="grey">#BBBBC2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#8A8A8A</color>
+    <color name="grey">#c1c1c1</color>
     <color name="red">#F44336</color>
     <color name="green">#8BC34A</color>
-    <color name="defaultPastel">#FFFFFF</color>
 
 </resources>

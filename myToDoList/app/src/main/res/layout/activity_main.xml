@@ -16,7 +16,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        app:backgroundTint="@color/colorPrimary"
+        android:tint="@color/textColor"
+        app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
@@ -27,12 +28,18 @@
         android:id="@+id/DateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <Switch
+            android:id="@+id/nightModeSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/DayOfWeekTextView"
@@ -43,7 +50,7 @@
             android:paddingBottom="8dp"
             android:text="Monday"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp" />
 
         <TextView
@@ -53,7 +60,7 @@
             android:layout_weight="1"
             android:text="March 21, 2019"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -61,13 +68,13 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateLayout"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/grey"/>
+        android:textColor="?android:attr/textColorPrimary"
+        app:tabTextColor="@color/grey" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"

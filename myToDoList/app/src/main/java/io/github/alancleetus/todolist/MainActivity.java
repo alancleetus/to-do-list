@@ -1,15 +1,19 @@
 package io.github.alancleetus.todolist;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,17 +41,44 @@ import io.realm.RealmResults;
 public class MainActivity extends AppCompatActivity {
 	//defining variables
 	private Realm realm;
-
-    private LinearLayout ParentLayout;
+    private Switch nightMode;
 	private TabLayout tabLayout;
 	private ViewPager viewPager;
     private final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkAppTheme);
+        }
+        else
+        {
+            setTheme(R.style.AppTheme);
+        }
+
+        super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+
+		final Switch nightMode = findViewById(R.id.nightModeSwitch);
+
+		if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            nightMode.setChecked(true);
+        }
+
+        nightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if(b)
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                else
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                restart();
+            }
+        });
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
@@ -221,4 +252,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         realm.close();
     }
+
+    public void restart()
+    {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }
