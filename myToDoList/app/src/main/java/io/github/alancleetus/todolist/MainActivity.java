@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -152,6 +153,24 @@ public class MainActivity extends AppCompatActivity
         Task tempTask = realm.where(Task.class).equalTo("ID", id).findFirst();
         tempTask.setDone(bool);
         realm.commitTransaction();
+
+        //add to active or completed
+
+        try{
+            if (!bool) {
+                ActiveFragment active = (ActiveFragment) adapter.getItem(0);
+
+                active.addToActiveList(tempTask);
+            } else {
+                CompletedFragment complete = (CompletedFragment) adapter.getItem(1);
+
+                complete.addToCompletedList(tempTask);
+            }
+        }catch (NullPointerException e)
+        {
+            e.printStackTrace();
+            Log.e("LOG: ERROR ","fragment not initialized");
+        }
     }
 
     public void deleteTaskFromDB(String id)

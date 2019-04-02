@@ -13,83 +13,40 @@ import java.util.ArrayList;
 
 public class ActiveFragment extends Fragment {
 
-    View view;
+    private View view;
     private LinearLayout ParentLayout;
+    public ActiveFragment(){}
 
-    public ActiveFragment()
-    {
-
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         view = inflater.inflate(R.layout.active_fragment, container, false);
-
         ArrayList<Task> activeTaskArray =  ((MainActivity) getActivity()).loadActive();
-
-        for( Task t : activeTaskArray)
-            addToActiveList(t);
-
+        for( Task t : activeTaskArray) { addToActiveList(t); }
         return view;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-        if (isVisibleToUser && getView() != null) {
-            ArrayList<Task> activeTaskArray = ((MainActivity) getActivity()).loadActive();
-
-            for (Task t : activeTaskArray)
-                addToActiveList(t);
-
-            System.out.println("LOG: Showing active list");
-        }else if(!isVisibleToUser && getView() != null)
-        {
-
-            ParentLayout = view.findViewById(R.id.activeTaskList);
-            ParentLayout.removeAllViews();
-            System.out.println("LOG: hide active");
-        }
-    }
-
-
-
-    //add a item to be done
-    public void addToActiveList(final Task t) {
-
+    public void addToActiveList(final Task t)
+    {
         ParentLayout = view.findViewById(R.id.activeTaskList);
 
         final View toDoItem = getLayoutInflater().inflate(R.layout.taskholder, null);
         TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
-        Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton); //button next to task
+        Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
 
-        //set the text and id of task based on incoming parameters
         taskText.setText(t.getTopic());
         toDoItem.setTag(t.getID());
 
-        System.out.println("LOG: "+(taskText).getText());
+        //toDoItem.setLongClickable(true);
 
-        //make the task long clickable
-
-        //todo:this does not work becasue id is null
-        toDoItem.setLongClickable(true);
-
-        //when user clicks on the edit button the status will be updated in the db,
-        //removed from to do list, and moved to done list
         radioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 ((MainActivity) getActivity()).updateTaskInDB(toDoItem.getTag().toString(),  true);
-                //we remove the item from the to be done section
                 ((LinearLayout) ParentLayout).removeView(toDoItem);
             }
         });
 
-        ParentLayout.addView(toDoItem);
+        ParentLayout.addView(toDoItem,0);
     }
-
 }
