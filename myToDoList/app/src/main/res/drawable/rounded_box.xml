@@ -10,7 +10,8 @@
         >
 
         <shape android:shape="rectangle">
-            <solid android:color="?android:attr/colorForegroundInverse"/>
+            <!--solid android:color="?android:attr/colorForegroundInverse"/-->
+            <solid android:color="?android:attr/colorPrimaryDark"/>
             <corners android:radius="3dp" />
         </shape>
 
