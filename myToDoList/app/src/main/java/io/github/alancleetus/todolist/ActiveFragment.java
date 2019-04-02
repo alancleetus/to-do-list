@@ -16,7 +16,6 @@ public class ActiveFragment extends Fragment {
     View view;
     private LinearLayout ParentLayout;
 
-
     public ActiveFragment()
     {
 
@@ -36,16 +35,27 @@ public class ActiveFragment extends Fragment {
         return view;
     }
 
-
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
 
-        ArrayList<Task> activeTaskArray =  ((MainActivity) getActivity()).loadActive();
+        if (isVisibleToUser && getView() != null) {
+            ArrayList<Task> activeTaskArray = ((MainActivity) getActivity()).loadActive();
 
-        for( Task t : activeTaskArray)
-            addToActiveList(t);
+            for (Task t : activeTaskArray)
+                addToActiveList(t);
+
+            System.out.println("LOG: Showing active list");
+        }else if(!isVisibleToUser && getView() != null)
+        {
+
+            ParentLayout = view.findViewById(R.id.activeTaskList);
+            ParentLayout.removeAllViews();
+            System.out.println("LOG: hide active");
+        }
     }
+
+
 
     //add a item to be done
     public void addToActiveList(final Task t) {

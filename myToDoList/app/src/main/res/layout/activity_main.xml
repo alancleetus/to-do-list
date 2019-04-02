@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:tint="@color/textColor"
+        android:tint="?attr/colorAccent"
         app:backgroundTint="?attr/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/open_sans"
             android:paddingBottom="8dp"
             android:text="Monday"
             android:textAlignment="center"
@@ -58,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/open_sans"
             android:text="March 21, 2019"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
@@ -69,11 +70,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:textColor="?android:attr/textColorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateLayout"
-        android:textColor="?android:attr/textColorPrimary"
         app:tabTextColor="@color/grey" />
 
     <android.support.v4.view.ViewPager

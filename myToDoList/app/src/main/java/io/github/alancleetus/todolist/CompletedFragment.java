@@ -36,13 +36,21 @@ public class CompletedFragment extends Fragment {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && getView() != null) {
+            ArrayList<Task> activeTaskArray = ((MainActivity) getActivity()).loadCompleted();
 
-        ArrayList<Task> activeTaskArray =  ((MainActivity) getActivity()).loadCompleted();
+            for (Task t : activeTaskArray)
+                addToCompletedList(t);
 
-        for( Task t : activeTaskArray)
-            addToCompletedList(t);
+            System.out.println("LOG: Showing completed list");
+        }else if(!isVisibleToUser && getView() != null)
+        {
+            ParentLayout = view.findViewById(R.id.completedTaskList);
+            ParentLayout.removeAllViews();
+            System.out.println("LOG: hide completed");
+        }
     }
 
     //add a item to be done
@@ -59,7 +67,7 @@ Button deleteButton = (Button) toDoItem.findViewById(R.id.deleteButtonForTask);
         taskText.setText(t.getTopic());
         toDoItem.setTag(t.getID());
 
-        System.out.println("LOG: "+(taskText).getText());
+        ///System.out.println("LOG: "+(taskText).getText());
 
         //make the task long clickable
 

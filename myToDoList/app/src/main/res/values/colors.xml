@@ -5,7 +5,7 @@
     <color name="colorPrimary">#81D4FA</color>
     <color name="colorPrimaryDark">#42A5F5</color>
     <color name="colorAccent">#F7AE30</color>
-    <color name="colorBackground">#EDEDED</color>
+    <color name="colorBackground">#f8f8f8</color>
     <color name="textColor">#000000</color>
 
 
@@ -18,7 +18,7 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#8A8A8A</color>
-    <color name="grey">#c1c1c1</color>
+    <color name="grey">#999999</color>
     <color name="red">#F44336</color>
     <color name="green">#8BC34A</color>
 

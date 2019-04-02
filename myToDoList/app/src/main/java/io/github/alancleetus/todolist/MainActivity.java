@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         tempTask.setDone(bool);
         realm.commitTransaction();
 
-
+/*
         if (bool) {
             CompletedFragment completed = (CompletedFragment) adapter.getItem(1);
             completed.addToCompletedList(tempTask);
@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         {
             ActiveFragment active = (ActiveFragment) adapter.getItem(0);
             active.addToActiveList(tempTask);
-        }
+        }*/
 
     }
     public void deleteTaskFromDB(String id)
@@ -247,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         tempTask.deleteFromRealm();
         realm.commitTransaction();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
