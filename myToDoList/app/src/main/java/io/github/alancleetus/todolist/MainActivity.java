@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -122,6 +121,66 @@ public class MainActivity extends AppCompatActivity
         }
 
         return arr;
+    }
+
+    /********************************************************************
+     *                                                                  *
+     *               Edit Task text Methods                             *
+     *                                                                  *
+     ********************************************************************/
+    public void editTask(final View toDoItem)
+    {
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.dialog, null);
+
+        final EditText taskTextInAlert = (EditText) mView.findViewById(R.id.TaskInput);
+
+        Button addButtonInAlert = (Button) mView.findViewById(R.id.NewTaskButton);
+        Button cancelAlert = (Button) mView.findViewById(R.id.cancelDialogButton);
+
+        final Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
+
+        taskTextInAlert.setText(tempTask.getTopic());
+
+        alertBuilder.setView(mView);
+        final AlertDialog dialog = alertBuilder.create();
+
+        addButtonInAlert.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //if the user has not written anything new, return
+                if (taskTextInAlert.getText().toString().matches("") || taskTextInAlert.getText().toString().matches(tempTask.getTopic()))
+                    //if the user has not written anything new, return/cancel
+                    if (taskTextInAlert.getText().toString().matches(""))
+                        return;
+
+                //update topic in database
+                realm.beginTransaction();
+                Task tempTask = realm.where(Task.class).equalTo("ID", toDoItem.getTag().toString()).findFirst();
+                tempTask.setTopic(taskTextInAlert.getText().toString());
+                realm.commitTransaction();
+
+                final TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
+                taskText.setText(tempTask.getTopic());
+
+                //clear the input box
+                taskTextInAlert.setText("");
+
+                dialog.cancel();
+            }
+        });
+
+        dialog.show();
+
+        //when cancel button is clicked, following will happen
+        cancelAlert.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
     }
 
     /********************************************************************
@@ -320,5 +379,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(i);
         finish();
     }
+
+
 
 }

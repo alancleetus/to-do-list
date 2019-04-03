@@ -29,12 +29,14 @@
         android:id="@+id/cancelDialogButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginRight="60dp"
         android:background="@drawable/cross"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/lightgrey"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/NewTaskButton"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TaskInput"
         tools:layout_constraintRight_creator="1" />
 
@@ -44,10 +46,11 @@
         android:layout_height="50dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/tick"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/colorAccent"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TaskInput"
         tools:layout_constraintRight_creator="1" />
 
 </android.support.constraint.ConstraintLayout>

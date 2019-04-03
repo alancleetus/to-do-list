@@ -22,15 +22,33 @@ public class CompletedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.completed_fragment, container, false);
+
+        ParentLayout = view.findViewById(R.id.completedTaskList);
+
+        ParentLayout.removeAllViews();
         ArrayList<Task> completedTaskArray =  ((MainActivity) getActivity()).loadCompleted();
         for( Task t : completedTaskArray){ addToCompletedList(t); }
+
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ParentLayout.removeAllViews();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ParentLayout.removeAllViews();
+        ArrayList<Task> completedTaskArray =  ((MainActivity) getActivity()).loadCompleted();
+        for( Task t : completedTaskArray){ addToCompletedList(t); }
     }
 
     public void addToCompletedList(final Task t)
     {
-        ParentLayout = view.findViewById(R.id.completedTaskList);
-
         final View toDoItem = getLayoutInflater().inflate(R.layout.donetaskholder, null);
         TextView taskText = (TextView) toDoItem.findViewById(R.id.taskTextView);
         Button radioButton = (Button) toDoItem.findViewById(R.id.radioButton);
